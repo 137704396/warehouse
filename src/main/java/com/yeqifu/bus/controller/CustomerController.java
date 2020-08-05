@@ -15,10 +15,12 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -33,7 +35,7 @@ import java.util.List;
 @RequestMapping("/customer")
 public class CustomerController {
 
-    @Autowired
+    @Resource
     private ICustomerService customerService;
 
     /**
@@ -93,7 +95,7 @@ public class CustomerController {
      */
     @ApiOperation(value = "删除一个客户",notes = "删除一个客户")
     @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "客户ID",required = true,paramType = "query",dataType = "Integer")})
-    @RequestMapping(value = "deleteCustomer",method = RequestMethod.DELETE)
+    @DeleteMapping(value = "deleteCustomer")
     public ResultObj deleteCustomer(Integer id){
         try {
             customerService.deleteCustomerById(id);

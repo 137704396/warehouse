@@ -89,7 +89,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">供应商地址</label>
                 <div class="layui-input-block">
-                    <input type="text" name="address" lay-verify="required" autocomplete="off" class="layui-input input-radius" placeholder="请输入供应商地址">
+                    <input type="text" name="address" autocomplete="off" class="layui-input input-radius" placeholder="请输入供应商地址">
                 </div>
             </div>
 
@@ -98,13 +98,13 @@
             <div class="layui-inline">
                 <label class="layui-form-label">供应商电话</label>
                 <div class="layui-input-block">
-                    <input type="text" name="telephone" lay-verify="required|number" autocomplete="off" class="layui-input input-radius" placeholder="请输入供应商电话">
+                    <input type="text" name="telephone" autocomplete="off" class="layui-input input-radius" placeholder="请输入供应商电话">
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">邮编</label>
                 <div class="layui-input-block">
-                    <input type="text" name="zip" lay-verify="required" autocomplete="off" class="layui-input input-radius" placeholder="请输入邮编">
+                    <input type="text" name="zip"  autocomplete="off" class="layui-input input-radius" placeholder="请输入邮编">
                 </div>
             </div>
         </div>
@@ -112,13 +112,13 @@
             <div class="layui-inline">
                 <label class="layui-form-label">联系人</label>
                 <div class="layui-input-block">
-                    <input type="text" name="connectionperson" lay-verify="required" autocomplete="off" class="layui-input input-radius" placeholder="请输入联系人姓名">
+                    <input type="text" name="connectionperson"  autocomplete="off" class="layui-input input-radius" placeholder="请输入联系人姓名">
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">联系电话</label>
                 <div class="layui-input-block">
-                    <input type="text" name="phone" lay-verify="required|number" autocomplete="off" class="layui-input input-radius" placeholder="请输入联系人电话">
+                    <input type="text" name="phone"  autocomplete="off" class="layui-input input-radius" placeholder="请输入联系人电话">
                 </div>
             </div>
         </div>
@@ -126,13 +126,13 @@
             <div class="layui-inline">
                 <label class="layui-form-label">开户银行</label>
                 <div class="layui-input-block">
-                    <input type="text" id="bank" name="bank" lay-verify="required" autocomplete="off" class="layui-input input-radius" placeholder="请输入开户银行">
+                    <input type="text" id="bank" name="bank"  autocomplete="off" class="layui-input input-radius" placeholder="请输入开户银行">
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">银行账户</label>
                 <div class="layui-input-block">
-                    <input type="text" id="account" name="account" lay-verify="required|number" autocomplete="off" class="layui-input input-radius" placeholder="请输入开户银行">
+                    <input type="text" id="account" name="account" autocomplete="off" class="layui-input input-radius" placeholder="请输入开户银行">
                 </div>
             </div>
         </div>
@@ -140,13 +140,13 @@
             <div class="layui-inline">
                 <label class="layui-form-label">email</label>
                 <div class="layui-input-block">
-                    <input type="text" id="email" name="email" lay-verify="required" autocomplete="off" class="layui-input input-radius" placeholder="请输入email">
+                    <input type="text" id="email" name="email" autocomplete="off" class="layui-input input-radius" placeholder="请输入email">
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">传真</label>
                 <div class="layui-input-block">
-                    <input type="text" id="fax" name="fax" lay-verify="required" autocomplete="off" class="layui-input input-radius" placeholder="请输入传真">
+                    <input type="text" id="fax" name="fax"  autocomplete="off" class="layui-input input-radius" placeholder="请输入传真">
                 </div>
             </div>
             <div class="layui-inline">
@@ -184,6 +184,14 @@
         var layer = layui.layer;
         var table = layui.table;
 
+        form.verify({
+            //数组的两个值分别代表：[正则匹配、匹配不符时的提示文字]
+            supplier:function (value){
+                if(!value || value==0){
+                    return "请选择供应商";
+                }
+            }
+        });
         //初始化表格 加载数据
         tableIns = table.render({
             elem: "#providerTable",
@@ -206,8 +214,8 @@
                 {field: 'email', title: '邮箱', align: 'center',width:'200'},
                 {field: 'fax', title: '传真', align: 'center',width:'100'},
                 {field: 'available', title: '是否可用', align: 'center',width:'100',templet:function (d) {
-                    return d.available==1?'<font color="blue">可用</font>':'<font color="red">不可用</font>';
-                }},
+                        return d.available==1?'<font color="blue">可用</font>':'<font color="red">不可用</font>';
+                    }},
                 {fixed: 'right', title: '操作', toolbar: '#providerRowBar', align: 'center',width:'180'}
             ] ],
             done: function (data, curr, count) {

@@ -127,7 +127,7 @@
                     <div class="layui-form-item magt3">
                         <label class="layui-form-label">供应商</label>
                         <div class="layui-input-block">
-                            <select name="providerid" id="providerid">
+                            <select name="providerid" id="providerid" lay-verify="supplier">
                                 <option value="0">请选择供应商</option>
                             </select>
                         </div>
@@ -142,7 +142,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">商品描述</label>
                         <div class="layui-input-block">
-                            <input type="text" class="layui-input input-radius" name="description" lay-verify="required" placeholder="请输入商品描述">
+                            <input type="text" class="layui-input input-radius" name="description" placeholder="请输入商品描述"> <!--lay-verify="required" -->
                         </div>
                     </div>
                 </div>
@@ -157,37 +157,37 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">产地</label>
                     <div class="layui-input-inline">
-                        <input type="text" class="layui-input input-radius" name="produceplace" lay-verify="required" placeholder="请输入商品产地">
+                        <input type="text" class="layui-input input-radius" name="produceplace" placeholder="请输入商品产地">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">包装</label>
                     <div class="layui-input-inline">
-                        <input type="text" class="layui-input input-radius" name="goodspackage" lay-verify="required" placeholder="请输入商品包装">
+                        <input type="text" class="layui-input input-radius" name="goodspackage"  placeholder="请输入商品包装">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">规格</label>
                     <div class="layui-input-inline">
-                        <input type="text" class="layui-input input-radius" name="size" lay-verify="required" placeholder="请输入商品规格">
+                        <input type="text" class="layui-input input-radius" name="size"  placeholder="请输入商品规格">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">生产批号</label>
                     <div class="layui-input-inline">
-                        <input type="text" class="layui-input input-radius" name="productcode" lay-verify="required" placeholder="请输入商品生产批号">
+                        <input type="text" class="layui-input input-radius" name="productcode"  placeholder="请输入商品生产批号">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">批准文号</label>
                     <div class="layui-input-inline">
-                        <input type="text" class="layui-input input-radius" name="promitcode" lay-verify="required" placeholder="请输入商品批准文号">
+                        <input type="text" class="layui-input input-radius" name="promitcode"  placeholder="请输入商品批准文号">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">销售价格</label>
                     <div class="layui-input-inline">
-                        <input type="text" class="layui-input input-radius" name="price" lay-verify="required|number" placeholder="请输入商品销售价格">
+                        <input type="text" class="layui-input input-radius" name="price"  placeholder="请输入商品销售价格">
                     </div>
                 </div>
                 <div class="layui-inline">
@@ -199,7 +199,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">预警值</label>
                     <div class="layui-input-inline">
-                        <input type="text" class="layui-input input-radius" name="dangernum" lay-verify="required|number" placeholder="请输入商品预警值">
+                        <input type="text" class="layui-input input-radius" name="dangernum"  placeholder="请输入商品预警值">
                     </div>
                 </div>
                 <div class="layui-inline">
@@ -239,6 +239,16 @@
         var table = layui.table;
         var upload = layui.upload;
 
+
+        form.verify({
+            //数组的两个值分别代表：[正则匹配、匹配不符时的提示文字]
+            supplier:function (value){
+                if(!value || value==0){
+                    return "请选择供应商";
+                }
+            }
+        });
+
         //初始化表格 加载数据
         tableIns = table.render({
             elem: "#goodsTable",
@@ -257,15 +267,15 @@
                 {field: 'number', title: '数量', align: 'center',width:'90'},
                 {field: 'dangernum', title: '库存预警值', align: 'center',width:'100'},
                 {field: 'goodsimg', title: '商品图片', align: 'center',width:'150', templet:function(d){
-                    return '<img width=40 height=40 src=/file/showImageByPath?path='+d.goodsimg+ ' />';
-                }},
+                        return '<img width=40 height=40 src=/file/showImageByPath?path='+d.goodsimg+ ' />';
+                    }},
                 {field: 'size', title: '规格', align: 'center',width:'120'},
                 {field: 'goodspackage', title: '包装', align: 'center',width:'120'},
                 {field: 'productcode', title: '生产批号', align: 'center',width:'130'},
                 {field: 'promitcode', title: '批准文号', align: 'center',width:'130'},
                 {field: 'available', title: '是否可用', align: 'center',width:'100',templet:function (d) {
-                    return d.available==1?'<font color="blue">可用</font>':'<font color="red">不可用</font>';
-                }},
+                        return d.available==1?'<font color="blue">可用</font>':'<font color="red">不可用</font>';
+                    }},
                 {fixed: 'right', title: '操作', toolbar: '#goodsRowBar', align: 'center',width:'180'}
             ] ],
             done: function (data, curr, count) {
